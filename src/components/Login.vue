@@ -80,7 +80,9 @@ export default {
       clientMac: "",
       baseGrantUrl: "",
       userContinueUrl: "",
-      successUrl: `${window.location.hostname}:${window.location.port}/success`,
+      successUrl: `https://${window.location.hostname}:${
+        window.location.port
+      }/success`,
       clientIp: "",
       nodeMac: "",
       customer: {},
