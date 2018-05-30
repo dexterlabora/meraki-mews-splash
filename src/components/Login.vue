@@ -21,14 +21,11 @@
               
                 <label for="lastName" class="grey-text font-weight-light">Last Name</label>
                 <b-form-input type="text" id="lastName" v-model="form.lastName" class="form-control" placeholder="Doe"/>
-                
-                <br>
 
                 <label for="roomNumber" class="grey-text font-weight-light">Room Number</label>
                 <b-form-input type="text" id="roomNumber" v-model="form.roomNumber" class="form-control" placeholder="A388-4"/>
                 <hr>
                 <p><i><b>or</b></i></p>
-                <br>
                 <label for="email" class="grey-text font-weight-light">Email</label>
                 <b-form-input type="email" id="email" v-model="form.email" placeholder="john@doe.com"/>
                 <br>
@@ -42,7 +39,7 @@
                 I accept the <a href="/terms">terms.</a>
                 </b-form-checkbox>
 
-                <div class="text-center py-4 mt-3">
+                <div class="text-center py-4 mt-2">
                     <b-button variant="outline-primary" type="submit">Login<i class="fa fa-paper-plane-o ml-2"></i></b-button>
                 </div>
             </b-form>
@@ -92,7 +89,8 @@ export default {
         room: "",
         email: "",
         terms: false
-      }
+      },
+      policy: {}
     };
   },
   computed: {
@@ -203,7 +201,7 @@ export default {
     },
     async login() {
       //const mewsEmailVerify = await this.mewsEmail();
-      const policy = await this.merakiPolicy();
+      this.policy = await this.merakiPolicy();
       this.merakiLogin();
     },
     log() {
@@ -212,6 +210,7 @@ export default {
         clientMac: this.clientMac,
         clientIp: this.clientIp,
         nodeMac: this.nodeMac,
+        policy: this.policy,
         userContinueUrl: this.userContinueUrl
       };
       console.log("log data", data);
