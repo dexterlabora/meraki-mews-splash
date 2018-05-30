@@ -80,7 +80,7 @@ export default {
       clientMac: "",
       baseGrantUrl: "",
       userContinueUrl: "",
-      successUrl: "/success",
+      successUrl: `${window.location.hostname}:${window.location.port}/success`,
       clientIp: "",
       nodeMac: "",
       customer: {},
@@ -192,7 +192,7 @@ export default {
       return await this.axios.put("/meraki/policy", policy).then(
         res => {
           console.log("Policy applied", res);
-          return res;
+          return res.data;
         },
         err => {
           console.log("Error: Could not apply policy: ", err);
