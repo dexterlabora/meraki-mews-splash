@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="bg">
+    <div >
       <img src="./assets/transparent_legos-192px.png">
       <router-view/>
     </div>
@@ -13,38 +13,36 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App"
+};
 </script>
 
 <style>
-
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
   margin-bottom: 10px;
-
 }
 .container {
   height: 90%;
 }
-.bg { 
-    /* The image used */
-    background-image: url("./assets/beach.jpg");
+.bg {
+  /* The image used */
+  background-image: url("./assets/beach.jpg");
 
-    /* Full height */
-    height: 100%; 
+  /* Full height */
+  height: 100%;
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}    
-     
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -54,5 +52,4 @@ export default {
   line-height: 60px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
-
 </style>

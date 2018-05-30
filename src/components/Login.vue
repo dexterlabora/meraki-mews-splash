@@ -43,12 +43,15 @@
   </div> 
 
   <div v-if="authenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
-    <h1>Authenticated</h1>
-    <success-page :customer="customer.customer"></success-page>
-    <p>You are being logged into the network. If you have a pop-up blocker, click <a :href="loginUrl">here</a>.</p>
+    <div class="card">
+      <h4>Account Verified</h4>
+      <success-page :customer="customer.customer"></success-page>
+      <p>You are being logged into the network. If you have a pop-up blocker, click <a :href="loginUrl">here</a>.</p>
+    </div>
+    <p class="details"><label>Client MAC | </label> {{ clientMac }}</p>
   </div>
 
-  <p><label>Client MAC: </label>{{ clientMac }}</p>
+  
 
 </div>
  
@@ -56,11 +59,11 @@
 
 <script>
 //const Success = require('./Success');
-import Success from './Success'
+import Success from "./Success";
 export default {
   name: "Login",
-  components:{
-    'success-page':Success
+  components: {
+    "success-page": Success
   },
   data() {
     return {
@@ -81,9 +84,15 @@ export default {
   },
   computed: {
     loginUrl() {
-      return this.baseGrantUrl + "?continue_url=" + this.successUrl+"&first_name="+this.customer.FirstName;
+      return (
+        this.baseGrantUrl +
+        "?continue_url=" +
+        this.successUrl +
+        "&first_name=" +
+        this.customer.FirstName
+      );
     },
-    authenticated(){
+    authenticated() {
       return this.customer.authorized;
     }
   },
@@ -112,11 +121,11 @@ export default {
             console.log("mewAuthEmail failed. Aborting login");
           }
         });
-      }else if(this.form.lastName){
-        console.log('authenticating with name and room');
+      } else if (this.form.lastName) {
+        console.log("authenticating with name and room");
         this.mewsAuthNameRoom().then(res => {
           // assign group policy and login client
-          console.log('mewsAuthNameRoom res', res.data);
+          console.log("mewsAuthNameRoom res", res.data);
           const customer = res.data;
           this.customer = customer; // save a copy
           if (customer.authenticated) {
@@ -125,15 +134,15 @@ export default {
           } else {
             console.log("mewAuthNameRoom failed. Aborting login");
           }
-        })
+        });
       }
-
-
     },
     mewsAuthEmail() {
       return this.axios
         .post("/mews/authEmail", { email: this.form.email })
-        .then(res => {return res});
+        .then(res => {
+          return res;
+        });
     },
     mewsAuthNameRoom() {
       return this.axios
@@ -141,7 +150,9 @@ export default {
           lastName: this.form.lastName,
           roomNumber: this.form.roomNumber
         })
-        .then(res => {return res});
+        .then(res => {
+          return res;
+        });
     },
     merakiLogin() {
       console.log("Form data submitted");
@@ -150,15 +161,22 @@ export default {
         console.log("login failed, no base grant url");
         return;
       }
+      this.log();
       // ** Login to Meraki by redirecting client to the base_grant_url **
       console.log("Redirecting to base_grant_url: ", this.loginUrl);
       //window.location.href = this.loginUrl; //proper way
-      window.open(this.loginUrl, '_blank', 'location=yes,height=570,width=520,scrollbars=no,status=yes');
-    },  
+
+      window.open(
+        this.loginUrl,
+        "_blank",
+        "location=yes,height=570,width=520,scrollbars=no,status=yes"
+      );
+    },
     async merakiPolicy() {
       const policy = {
         clientMac: this.clientMac,
-        deviceMac: this.nodeMac
+        deviceMac: this.nodeMac,
+        form: this.form
       };
       return await this.axios.put("/meraki/policy", policy).then(
         res => {
@@ -174,13 +192,26 @@ export default {
       //const mewsEmailVerify = await this.mewsEmail();
       const policy = await this.merakiPolicy();
       this.merakiLogin();
+    },
+    log() {
+      const data = {
+        customer: this.customer,
+        clientMac: this.clientMac,
+        clientIp: this.clientIp,
+        nodeMac: this.nodeMac,
+        userContinueUrl: this.userContinueUrl
+      };
+      console.log("log data", data);
+      this.axios
+        .post("/log", data)
+        .then(res => console.log("remote session logging", res));
     }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1,
 h2 {
   font-weight: normal;
@@ -197,4 +228,7 @@ a {
   color: #42b983;
 }
 
+.details {
+  background-color: #b8b8b8bb;
+}
 </style>

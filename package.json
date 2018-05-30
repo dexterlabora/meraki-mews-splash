@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "json-bigint": "^0.2.3",
-    "meraki-service": "file:../meraki-service",
+    "meraki-service": "git+https://github.com/dexterlabora/meraki-service.git",
     "request": "^2.85.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.1",
