@@ -3,55 +3,42 @@
   
   <!-- Card -->
   <div v-if="!authenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
-    <b-card 
-    title="Hotel Solutions"
-    style="mx-md-4"
-    >
-    <p class="card-text">
-      Enjoy your stay with complimentary WiFi.
-    </p>
-        <!-- Card body -->
-        <b-card-body class="card-body">
+    <div class="card mx-md-4">
 
+        <!-- Card body -->
+        <div class="card-body">
 
             <!-- Default form subscription -->
+            <form @submit.prevent="onSubmit">
+                <p class="h4 text-center py-4">WiFi Access</p>
 
-
-            <b-form @submit.prevent="onSubmit">
-              
                 <label for="lastName" class="grey-text font-weight-light">Last Name</label>
-                <b-form-input type="text" id="lastName" v-model="form.lastName" class="form-control" placeholder="Doe"/>
+                <input type="text" id="lastName" v-model="form.lastName" class="form-control" placeholder="Doe">
                 
                 <br>
 
                 <label for="roomNumber" class="grey-text font-weight-light">Room Number</label>
-                <b-form-input type="text" id="roomNumber" v-model="form.roomNumber" class="form-control" placeholder="A388-4"/>
+                <input type="text" id="roomNumber" v-model="form.roomNumber" class="form-control" placeholder="A388-4">
                 <hr>
                 <p><i><b>or</b></i></p>
                 <br>
                 <label for="email" class="grey-text font-weight-light">Email</label>
-                <b-form-input type="email" id="email" v-model="form.email" placeholder="john@doe.com"/>
+                <input type="email" id="email" v-model="form.email" placeholder="john@doe.com">
                 <br>
                 <hr>
-
-                <b-form-checkbox id="checkbox1"
-                     v-model="form.terms"
-                     value="accepted"
-                     required
-                     unchecked-value="not_accepted">
-                I accept the <a href="/terms">terms.</a>
-                </b-form-checkbox>
+                <label for="terms" ><a href="/terms">Agree to T&S</a></label>
+                <input type="checkbox" required=true id="terms" v-model="form.terms">
 
                 <div class="text-center py-4 mt-3">
-                    <b-button variant="outline-primary" type="submit">Login<i class="fa fa-paper-plane-o ml-2"></i></b-button>
+                    <button class="btn btn-outline-primary" type="submit">Login<i class="fa fa-paper-plane-o ml-2"></i></button>
                 </div>
-            </b-form>
+            </form>
             <!-- Default form subscription -->
 
-        </b-card-body>
+        </div>
         <!-- Card body -->
 
-    </b-card>
+    </div>
   <!-- Card -->
   </div> 
 

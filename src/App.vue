@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <div >
+    <div class="container">
       <img src="./assets/transparent_legos-192px.png">
       <router-view/>
     </div>
-    <footer class="page-footer font-small blue-grey lighten-5 pt-0 footer">
+
+    <footer class="container-fluid">
+      <nav class="navbar fixed-bottom footer">
         <a href="https://meraki.io">Meraki.io</a>
+      </nav>
     </footer>
+
 
   </div>
 </template>
@@ -44,12 +48,6 @@ export default {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
 </style>
