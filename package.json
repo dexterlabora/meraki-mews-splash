@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "express": "^4.16.3",
     "json-bigint": "^0.2.3",
     "meraki-service": "git+https://github.com/dexterlabora/meraki-service.git",
     "request": "^2.85.0",
