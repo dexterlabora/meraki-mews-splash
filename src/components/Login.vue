@@ -49,7 +49,7 @@
     <div class="card">
       <h4>Account Verified</h4>
       <success-page :customer="customer.customer"></success-page>
-      <p>You are being logged into the network. If you have a pop-up blocker, click <a :href="loginUrl">here</a>.</p>
+      <p>You are being logged into the network.</p>
       <iframe :src="loginUrl" width="10%" 
         height="20px" frameborder="0" style="position:relative;z 
         index:999" ref="frame">
