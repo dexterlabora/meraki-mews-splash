@@ -50,9 +50,13 @@
       <h4>Account Verified</h4>
       <success-page :customer="customer.customer"></success-page>
       <p>You are being logged into the network.</p>
-      <iframe :src="loginUrl" width="10%" 
-        height="20px" frameborder="0" style="position:relative;z 
-        index:999" ref="frame">
+      <iframe 
+      :src="loginUrl" 
+      width="50%" 
+      height="50px" 
+      frameborder="0" 
+      style="position:relative;z index:999" 
+      ref="frame">
       </iframe>
     </div>
     <p class="details"><label>Client MAC | </label> {{ clientMac }}</p>
