@@ -1,8 +1,7 @@
 <template>
 <div>
   
-  <!-- Card -->
-  <div v-if="!authenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
+  <div v-if="!mewsAuthenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
     <b-card 
     title="Hotel Solutions"
     style="mx-md-4"
@@ -10,12 +9,8 @@
     <p class="card-text">
       Enjoy your stay with complimentary WiFi.
     </p>
-        <!-- Card body -->
+
         <b-card-body class="card-body">
-
-
-            <!-- Default form subscription -->
-
 
             <b-form @submit.prevent="onSubmit">
               
@@ -43,25 +38,25 @@
                     <b-button variant="outline-primary" type="submit">Login<i class="fa fa-paper-plane-o ml-2"></i></b-button>
                 </div>
             </b-form>
-            <!-- Default form subscription -->
+    
 
         </b-card-body>
-        <!-- Card body -->
+
 
     </b-card>
-  <!-- Card -->
   </div> 
-
-  <div v-if="authenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
+  <div v-if="mewsAuthenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
     <div class="card">
       <h4>Account Verified</h4>
       <success-page :customer="customer.customer"></success-page>
       <p>You are being logged into the network. If you have a pop-up blocker, click <a :href="loginUrl">here</a>.</p>
+      <iframe :src="loginUrl" width="10%" 
+        height="20px" frameborder="0" style="position:relative;z 
+        index:999" ref="frame">
+      </iframe>
     </div>
     <p class="details"><label>Client MAC | </label> {{ clientMac }}</p>
   </div>
-
-  
 
 </div>
  
@@ -80,9 +75,6 @@ export default {
       clientMac: "",
       baseGrantUrl: "",
       userContinueUrl: "",
-      successUrl: `https://${window.location.hostname}:${
-        window.location.port
-      }/success`,
       clientIp: "",
       nodeMac: "",
       customer: {},
@@ -92,21 +84,17 @@ export default {
         email: "",
         terms: false
       },
-      policy: {}
+      policy: {},
+      mewsAuthenticated: false,
+      merakiAuthenticated: false
     };
   },
   computed: {
     loginUrl() {
-      return (
-        this.baseGrantUrl +
-        "?continue_url=" +
-        this.successUrl +
-        "&first_name=" +
-        this.customer.FirstName
-      );
+      return this.baseGrantUrl + "?continue_url=" + this.successUrl;
     },
-    authenticated() {
-      return this.customer.authorized;
+    successUrl() {
+      return this.userContinueUrl;
     }
   },
   created() {
@@ -129,6 +117,7 @@ export default {
           this.customer = customer; // save a copy
           if (customer.authorized) {
             console.log("mewsAuthEmail success");
+            this.mewsAuthenticated = true;
             this.login();
           } else {
             console.log("mewAuthEmail failed. Aborting login");
@@ -143,6 +132,7 @@ export default {
           this.customer = customer; // save a copy
           if (customer.authenticated) {
             console.log("mewsAuthNameRoom success");
+            this.mewsAuthenticated = true;
             this.login();
           } else {
             console.log("mewAuthNameRoom failed. Aborting login");
@@ -178,12 +168,19 @@ export default {
       // ** Login to Meraki by redirecting client to the base_grant_url **
       console.log("Redirecting to base_grant_url: ", this.loginUrl);
       //window.location.href = this.loginUrl; //proper way
-
+      /* fails: CORS
+      this.axios.get(this.loginUrl).then(res => {
+        console.log("logging into meraki", res);
+      });
+      */
+      // works
+      /*
       window.open(
         this.loginUrl,
         "_blank",
         "location=yes,height=570,width=520,scrollbars=no,status=yes"
       );
+      */
     },
     async merakiPolicy() {
       const policy = {

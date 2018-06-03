@@ -11,11 +11,27 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/mews': { 
+      '/mews': {
         target: 'http://localhost:8088/mews',
         changeOrigin: true,
         pathRewrite: {
-          '/mews' : ''
+          '/mews': ''
+        }
+      },
+      // meraki api proxy
+      '/api': {
+        target: 'http://localhost:8088/api',
+        changeOrigin: true,
+        pathRewrite: {
+          '/api': ''
+        }
+      },
+      //
+      '/log': {
+        target: 'http://localhost:8088/log',
+        changeOrigin: true,
+        pathRewrite: {
+          '/log': ''
         }
       }
     },
@@ -28,7 +44,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
