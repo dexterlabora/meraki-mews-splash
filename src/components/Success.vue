@@ -11,7 +11,7 @@
 <script>
 export default {
   name: "Success",
-  //props: ["userContinueUrl", "customer"],
+  //props: ["customer"],
   data() {
     return {
       customers: []

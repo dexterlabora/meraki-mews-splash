@@ -47,9 +47,10 @@
   </div> 
   <div v-if="mewsAuthenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
     <div class="card">
-      <h4>Account Verified</h4>
-      <success-page :customer="customer.customer"></success-page>
-      <p>You are being logged into the network.</p>
+      <h4>Hi {{customer.customer.FirstName}}!</h4>
+      <!--<success-page :customer="customer.customer"></success-page>-->
+      <p>You are being logged into the network now.</p>
+      <!--
       <iframe 
       :src="loginUrl" 
       width="50%" 
@@ -58,6 +59,7 @@
       style="position:relative;z index:999" 
       ref="frame">
       </iframe>
+      -->
     </div>
     <p class="details"><label>Client MAC | </label> {{ clientMac }}</p>
   </div>
