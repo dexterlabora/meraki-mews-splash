@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div class="container">
-      <img src="./assets/transparent_legos-192px.png">
       <router-view/>
     </div>
 
@@ -50,4 +49,10 @@ export default {
 .footer {
   background-color: #f5f5f5;
 }
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
 </style>
+

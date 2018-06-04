@@ -1,11 +1,12 @@
 <template>
 <div>
-  
-  <div v-if="!mewsAuthenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
+
+  <div v-if="!mewsAuthenticated" class="col-sm-10 offset-sm-2 col-md-8  offset-md-2 col-lg-8 offset-lg-2 text-center">
     <b-card 
     title="Hotel Solutions"
-    style="mx-md-4"
     >
+    <center><img src="/static/transparent_legos-192px.png" class="d-none d-md-block" alt="Logo image"></center>
+    
     <p class="card-text">
       Enjoy your stay with complimentary WiFi.
     </p>
@@ -45,7 +46,7 @@
 
     </b-card>
   </div> 
-  <div v-if="mewsAuthenticated" class="col-sm-10 offset-sm-1 offset-md-4 col-md-4 text-center">
+  <div v-if="mewsAuthenticated" class="col-sm-10 offset-sm-1 offset-md-1 col-md-8 text-center">
     <div class="card">
       <h4>Hi {{customer.customer.FirstName}}!</h4>
       <!--<success-page :customer="customer.customer"></success-page>-->
