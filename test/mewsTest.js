@@ -37,10 +37,18 @@ mews.authEmail({email}).then( res => console.log(res));
 mews.searchCustomer({Name:"Doe"}).then(res => console.log(res.data));
 */
 
-
+/*
 const options = {
     Name: "doe",
     RoomNumber: "A388-4"
 };
 mews.authNameRoom(options).then(res => console.log(res));
+*/
 
+
+const data = {
+    "CustomerIds": [
+        "e54b82a8-72ea-42e5-92a3-9cf7771a3bb3"
+    ]
+};
+mews.getAllByIds(data).then(res => console.log("getAllbyIds:", res.data));

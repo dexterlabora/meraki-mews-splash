@@ -96,6 +96,19 @@ app.post('/mews/authNameRoom', jsonParser, function (req, res) {
   });
 });
 
+app.get('/mews/customer/:id', function (req, res) {
+  const data = {
+    "CustomerIds": [
+      req.params.id
+    ]
+  };
+  mews.getAllByIds(data).then(response => {
+    console.log("getAllbyIds:", response);
+    res.send(response);
+    res.end();
+  });
+
+});
 // Loyalty
 
 // ********

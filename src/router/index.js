@@ -20,9 +20,10 @@ export default new Router({
       component: Terms
     },
     {
-      path: '/success',
+      path: '/success/:customerId',
       name: 'Success',
-      component: Success
+      component: Success,
+      parameters: true
     }
   ]
 })

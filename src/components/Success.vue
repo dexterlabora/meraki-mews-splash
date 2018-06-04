@@ -2,7 +2,7 @@
 <div>
 
     <div class="card">
-        <h2>Welcome home {{firstName}}</h2>
+        <h2>Welcome home {{customer.FirstName}}</h2>
         <img src="@/assets/bedBeachView.jpg" height="100%" width="100%" alt="Hotel Room"/>
     </div>
 </div>
@@ -11,15 +11,33 @@
 <script>
 export default {
   name: "Success",
-  props: ["customer"],
+  //props: ["userContinueUrl", "customer"],
   data() {
     return {
-      firstName: ""
+      customers: []
     };
   },
+  computed: {
+    customer() {
+      if (this.customers.Customers) {
+        return this.customers.Customers[0];
+      } else {
+        return {};
+      }
+    },
+    customerId() {
+      return this.$route.params.customerId;
+    }
+  },
+  methods: {
+    fetchCustomer() {
+      this.axios.get(`/mews/customer/${this.customerId}`).then(res => {
+        this.customers = res.data;
+      });
+    }
+  },
   created() {
-    console.log("success page, customer", this.customer);
-    this.firstName = this.customer["FirstName"];
+    this.fetchCustomer();
   }
 };
 </script>

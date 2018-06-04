@@ -53,7 +53,7 @@
       <iframe 
       :src="loginUrl" 
       width="50%" 
-      height="50px" 
+      height="50%" 
       frameborder="0" 
       style="position:relative;z index:999" 
       ref="frame">
@@ -81,7 +81,11 @@ export default {
       userContinueUrl: "",
       clientIp: "",
       nodeMac: "",
-      customer: {},
+      customer: {
+        customer: {
+          id: ""
+        }
+      },
       form: {
         lastName: "",
         room: "",
@@ -97,8 +101,16 @@ export default {
     loginUrl() {
       return this.baseGrantUrl + "?continue_url=" + this.successUrl;
     },
+
     successUrl() {
-      return this.userContinueUrl;
+      /*
+      let url = encodeURI(
+        this.userContinueUrl + "&customerId=" + this.customer.customer["Id"]
+      );
+      */
+      return `${window.location.protocol}//${window.location.hostname}:${
+        window.location.port
+      }/success/${this.customer.customer["Id"]}`;
     }
   },
   created() {
@@ -171,7 +183,7 @@ export default {
       this.log();
       // ** Login to Meraki by redirecting client to the base_grant_url **
       console.log("Redirecting to base_grant_url: ", this.loginUrl);
-      //window.location.href = this.loginUrl; //proper way
+      window.location.href = this.loginUrl; //proper way
       /* fails: CORS
       this.axios.get(this.loginUrl).then(res => {
         console.log("logging into meraki", res);
