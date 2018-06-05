@@ -16,14 +16,14 @@
             <b-form @submit.prevent="onSubmit">
               
                 <label for="lastName" class="grey-text font-weight-light">Last Name</label>
-                <b-form-input type="text" id="lastName" v-model="form.lastName" class="form-control" placeholder="Doe"/>
+                <b-form-input type="text" id="lastName" v-model="form.lastName" class="form-control" placeholder="Meraki"/>
 
                 <label for="roomNumber" class="grey-text font-weight-light">Room Number</label>
-                <b-form-input type="text" id="roomNumber" v-model="form.roomNumber" class="form-control" placeholder="A388-4"/>
+                <b-form-input type="text" id="roomNumber" v-model="form.roomNumber" class="form-control" placeholder="400"/>
                 <hr>
                 <p><i><b>or</b></i></p>
                 <label for="email" class="grey-text font-weight-light">Email</label>
-                <b-form-input type="email" id="email" v-model="form.email" placeholder="john@doe.com"/>
+                <b-form-input type="email" id="email" v-model="form.email" placeholder="miles@meraki.com"/>
                 <br>
                 <hr>
 
@@ -132,11 +132,12 @@ export default {
       if (this.form.email) {
         this.mewsAuthEmail().then(res => {
           // assign group policy and login client
-          const customer = res.data;
-          this.customer = customer; // save a copy
-          if (customer.authorized) {
+          this.customer = res.data;
+          if (this.customer.authorized) {
             console.log("mewsAuthEmail success");
+            // save authentication state
             this.mewsAuthenticated = true;
+            // complete meraki login
             this.login();
           } else {
             console.log("mewAuthEmail failed. Aborting login");
@@ -150,9 +151,8 @@ export default {
         this.mewsAuthNameRoom().then(res => {
           // assign group policy and login client
           console.log("mewsAuthNameRoom res", res.data);
-          const customer = res.data;
-          this.customer = customer; // save a copy
-          if (customer.authorized) {
+          this.customer = res.data;
+          if (this.customer.authorized) {
             console.log("mewsAuthNameRoom success");
             this.mewsAuthenticated = true;
             this.login();
@@ -240,6 +240,7 @@ export default {
         userContinueUrl: this.userContinueUrl
       };
       console.log("log data", data);
+      // send data to logging system
       this.axios
         .post("/log", data)
         .then(res => console.log("remote session logging", res));
