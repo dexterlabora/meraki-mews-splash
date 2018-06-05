@@ -140,6 +140,9 @@ export default {
             this.login();
           } else {
             console.log("mewAuthEmail failed. Aborting login");
+            this.$toasted.error(
+              "Authentication Failed. The email was not found"
+            );
           }
         });
       } else if (this.form.lastName) {
@@ -149,12 +152,15 @@ export default {
           console.log("mewsAuthNameRoom res", res.data);
           const customer = res.data;
           this.customer = customer; // save a copy
-          if (customer.authenticated) {
+          if (customer.authorized) {
             console.log("mewsAuthNameRoom success");
             this.mewsAuthenticated = true;
             this.login();
           } else {
             console.log("mewAuthNameRoom failed. Aborting login");
+            this.$toasted.error(
+              "Authentication Failed. The name or room number combination was not found."
+            );
           }
         });
       }
@@ -169,8 +175,8 @@ export default {
     mewsAuthNameRoom() {
       return this.axios
         .post("/mews/authNameRoom", {
-          lastName: this.form.lastName,
-          roomNumber: this.form.roomNumber
+          Name: this.form.lastName,
+          RoomNumber: this.form.roomNumber
         })
         .then(res => {
           return res;
@@ -181,6 +187,7 @@ export default {
 
       if (!this.baseGrantUrl) {
         console.log("login failed, no base grant url");
+
         return;
       }
       this.log();
@@ -214,6 +221,7 @@ export default {
         },
         err => {
           console.log("Error: Could not apply policy: ", err);
+          this.$toasted.error("Error: Could not apply policy: ", err);
         }
       );
     },

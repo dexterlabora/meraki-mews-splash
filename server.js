@@ -86,8 +86,8 @@ app.post('/mews/authEmail', jsonParser, function (req, res) {
 app.post('/mews/authNameRoom', jsonParser, function (req, res) {
   console.log('mews/authNameRoom req.body', req.body);
   const options = {
-    Name: req.body.lastName,
-    RoomNumber: req.body.roomNumber
+    Name: req.body.Name,
+    RoomNumber: req.body.RoomNumber
   };
   console.log('/mews/authNameRoom options', options);
   mews.authNameRoom(options).then(response => {

@@ -71,9 +71,11 @@ class Mews {
             console.log('supplied Name,', Name);
             const customers = res.data['Customers'];
             for (let c of customers) {
-                console.log('supplied RoomNumber,', RoomNumber);
-                console.log('c.RoomNumber', c.RoomNumber);
-                if (c.RoomNumber == RoomNumber) {
+                console.log('supplied Number,', RoomNumber);
+                console.log('c.Number', c.RoomNumber);
+                console.log('c.LastName', c.LastName);
+                console.log('Name', Name);
+                if (c.RoomNumber == RoomNumber && c.LastName == Name) {
                     console.log("authNameNumber room number verified")
                     return { authorized: true, customer: c }
                 }

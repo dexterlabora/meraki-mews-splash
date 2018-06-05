@@ -8,12 +8,15 @@ import VueAxios from 'vue-axios'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Toasted from 'vue-toasted';
+
+Vue.use(Toasted, { duration: 3000 });
 
 Vue.use(BootstrapVue);
 
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, axios);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
