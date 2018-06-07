@@ -19,19 +19,35 @@
 
 ## Configure Meraki
 
-First you must have a Meraki wireless network setup to direct your clients to.
+You must have a Meraki wireless network setup to direct your clients to. Login to the [Dashboard](https://dashboard.meraki.com) and navigate to your Wireless network.
 
-### Access Control:
+### Configure --> Access Control
 
-- (select ssid)
-- Authorization --> Click-through
-- Walled Garden --> Your server's IP or domain
+_Select SSID, then set the following:_
 
-### Splash Page
+- Authorization: Click-through
+- Walled Garden: Your server's IP, public hosts, resources
 
-- Custom splash URL --> Your server
+_example_
 
-Note, your server address can be localhost if on a bridged wireless network. Be sure to update the server locations if you publish this to a new site such as Heroku or remote server.
+```
+*.herokuapp.com
+*.bootstrapcdn.com
+192.168.0.113/32
+ngrok.io
+```
+
+### Configure --> Splash Page
+
+- Custom splash URL: Your server
+
+_example_
+
+```
+http://192.168.0.113:8083
+```
+
+Note, your server address can be a local server if on a bridged wireless network. Be sure to update the server locations if you publish this to a new site such as Heroku or remote server.
 
 For more details on the Captive Portal and Dashboard API
 
