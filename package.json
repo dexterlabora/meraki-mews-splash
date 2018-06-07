@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Cisco Meraki demo splash page with Mews API integration",
   "author": "Cory Guynn",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js & node server.js",
